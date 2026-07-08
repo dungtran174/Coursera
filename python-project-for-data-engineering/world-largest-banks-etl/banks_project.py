@@ -93,6 +93,8 @@ if __name__ == '__main__':
     log_progress('Preliminaries complete. Initiating ETL process')
     
     df = extract(url, table_attribs)
+    print("Output of extract():")
+    print(df)
     log_progress('Data extraction complete. Initiating Transformation process')
     
     df = transform(df, exchange_rate_csv)
