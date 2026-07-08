@@ -16,7 +16,7 @@ exchange_rate_csv = 'https://cf-courses-data.s3.us.cloud-object-storage.appdomai
 def log_progress(message):
     ''' This function logs the mentioned message of a given stage of the
     code execution to a log file. Function returns nothing'''
-    timestamp_format = '%Y-%m-%d-%H:%M:%S' # Year-Monthname-Day-Hour-Minute-Second 
+    timestamp_format = '%Y-%h-%d-%H:%M:%S' # Year-Monthname-Day-Hour-Minute-Second 
     now = datetime.now() # get current timestamp 
     timestamp = now.strftime(timestamp_format) 
     with open(log_file,"a") as f: 
@@ -98,6 +98,8 @@ if __name__ == '__main__':
     log_progress('Data extraction complete. Initiating Transformation process')
     
     df = transform(df, exchange_rate_csv)
+    print("Output of transform():")
+    print(df)
     log_progress('Data transformation complete. Initiating loading process')
     
     load_to_csv(df, csv_path)
@@ -107,7 +109,7 @@ if __name__ == '__main__':
     log_progress('SQL Connection initiated.')
     
     load_to_db(df, sql_connection, table_name)
-    log_progress('Data loaded to Database as table. Running the query')
+    log_progress('Data loaded to Database as table. Executing queries.')
     
     query_statement_1 = f"SELECT * FROM {table_name}"
     run_query(query_statement_1, sql_connection)
